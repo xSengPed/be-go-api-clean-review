@@ -17,9 +17,9 @@ func main() {
 	repositories.ConnectToMongoDB(&config.Mongo)
 	v1 := app.Group("/v1")
 	api := v1.Group("/api")
-	// api.Get("/post")
+	api.Get("/post", postcontroller.GetPost)
 	api.Post("/post", postcontroller.CreatePost)
 	// api.Put("/post")
-	// api.Delete("/post")
+	api.Delete("/post", postcontroller.DeletePost)
 	app.Listen(":3000")
 }
