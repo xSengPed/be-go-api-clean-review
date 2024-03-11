@@ -9,7 +9,7 @@ import (
 	"golang.org/x/exp/slog"
 )
 
-var DB *mongo.Client
+var DB *mongo.Collection
 
 func ConnectToMongoDB(mongoConfig *config.MongoConfig) {
 	db, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb+srv://"+mongoConfig.Username+":"+mongoConfig.Password+"@"+mongoConfig.ClusterName))
@@ -18,5 +18,5 @@ func ConnectToMongoDB(mongoConfig *config.MongoConfig) {
 	}
 
 	slog.Info("Connected to MongoDB")
-	DB = db
+	DB = db.Database("nuxt_app").Collection("post")
 }
